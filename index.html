@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cricket Stadium UI</title>
+<style>
+  body {
+    background: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .stadium {
+    position: relative;
+    width: 800px;
+    height: 500px;
+    background: radial-gradient(ellipse at center, #3cb043 0%, #1f5c1f 100%);
+    border-radius: 50% / 40%;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+  }
+
+  /* Boundary line */
+  .boundary {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 5px solid white;
+    border-radius: 50% / 40%;
+  }
+
+  /* Pitch */
+  .pitch {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 60px;
+    background: #d2b48c;
+    border-radius: 8px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  }
+
+  /* Crease lines */
+  .crease {
+    position: absolute;
+    height: 2px;
+    width: 180px;
+    background: white;
+  }
+  .crease.top { top: 10px; }
+  .crease.bottom { bottom: 10px; }
+
+  /* Stumps */
+  .stumps {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: none;
+    border-left: 3px solid brown;
+    border-right: 3px solid brown;
+    border-top: 3px solid brown;
+    transform: translateX(-50%);
+  }
+  .stumps.top { top: -10px; left: 50%; }
+  .stumps.bottom { bottom: -10px; left: 50%; }
+
+  /* Scoreboard */
+  .scoreboard {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    border: 2px solid #fff;
+  }
+
+  /* Crowd stands */
+  .stands {
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    right: -30px;
+    bottom: -30px;
+    border-radius: 50% / 40%;
+    background: repeating-linear-gradient(
+      45deg,
+      #444,
+      #444 10px,
+      #555 10px,
+      #555 20px
+    );
+    z-index: -1;
+  }
+</style>
+</head>
+<body>
+
+<div class="stadium">
+  <div class="stands"></div>
+  <div class="boundary"></div>
+  <div class="scoreboard" id="scoreboard">IND: 0/0 (0.0)</div>
+  <div class="pitch">
+    <div class="crease top"></div>
+    <div class="crease bottom"></div>
+    <div class="stumps top"></div>
+    <div class="stumps bottom"></div>
+  </div>
+</div>
+
+<script>
+  // Simple scoreboard updater
+  let runs = 0, wickets = 0, balls = 0;
+  setInterval(() => {
+    runs += Math.floor(Math.random() * 4); // random 0-3 runs
+    if (Math.random() < 0.05) wickets++;
+    balls++;
+    let overs = Math.floor(balls / 6);
+    let ballsRem = balls % 6;
+    document.getElementById('scoreboard').textContent =
+      `IND: ${runs}/${wickets} (${overs}.${ballsRem})`;
+  }, 1500);
+</script>
+
+</body>
+</html>
